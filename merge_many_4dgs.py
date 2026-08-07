@@ -184,21 +184,21 @@ args2 = deepcopy(args)
 args3 = deepcopy(args)
 
 if args.configs1:
-    import mmcv
+    from utils.config_utils import load_config
     from utils.params_utils import merge_hparams
-    config = mmcv.Config.fromfile(args.configs1)
+    config = load_config(args.configs1)
     args1 = merge_hparams(args, config)
 # breakpoint()
 if args2.configs2:
-    import mmcv
+    from utils.config_utils import load_config
     from utils.params_utils import merge_hparams
-    config = mmcv.Config.fromfile(args2.configs2)
+    config = load_config(args2.configs2)
     args2 = merge_hparams(args2, config)
     args2.model_path = args2.modelpath2
 if args3.configs3:
-    import mmcv
+    from utils.config_utils import load_config
     from utils.params_utils import merge_hparams
-    config = mmcv.Config.fromfile(args3.configs3)
+    config = load_config(args3.configs3)
     args3 = merge_hparams(args3, config)
     args3.model_path = args3.modelpath3
 safe_state(args.quiet)
