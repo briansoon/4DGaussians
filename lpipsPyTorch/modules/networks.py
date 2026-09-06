@@ -78,7 +78,8 @@ class AlexNet(BaseNet):
     def __init__(self):
         super(AlexNet, self).__init__()
 
-        self.layers = models.alexnet(True).features
+        # self.layers = models.alexnet(True).features
+        self.layers = models.alexnet(weights=models.AlexNet_Weights.IMAGENET1K_V1).features
         self.target_layers = [2, 5, 8, 10, 12]
         self.n_channels_list = [64, 192, 384, 256, 256]
 

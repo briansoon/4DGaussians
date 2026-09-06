@@ -12,7 +12,8 @@ rm -rf $workdir/colmap/sparse/0
 mkdir $workdir/colmap
 cp -r $workdir/image_colmap $workdir/colmap/images
 cp -r $workdir/sparse_ $workdir/colmap/sparse_custom
-colmap feature_extractor --database_path $workdir/colmap/database.db --image_path $workdir/colmap/images  --SiftExtraction.max_image_size 4096 --SiftExtraction.max_num_features 16384 --SiftExtraction.estimate_affine_shape 1 --SiftExtraction.domain_size_pooling 1
+colmap feature_extractor --database_path $workdir/colmap/database.db --image_path $workdir/colmap/images  --SiftExtraction.max_image_size 4096 --SiftExtraction.max_num_features 16384
+# colmap feature_extractor --database_path $workdir/colmap/database.db --image_path $workdir/colmap/images  --SiftExtraction.max_image_size 4096 --SiftExtraction.max_num_features 16384 --SiftExtraction.estimate_affine_shape 1 --SiftExtraction.domain_size_pooling 1
 python database.py --database_path $workdir/colmap/database.db --txt_path $workdir/colmap/sparse_custom/cameras.txt
 colmap exhaustive_matcher --database_path $workdir/colmap/database.db
 mkdir -p $workdir/colmap/sparse/0
