@@ -12,6 +12,7 @@
 from errno import EEXIST
 from os import makedirs, path
 import os
+import subprocess
 
 def mkdir_p(folder_path):
     # Creates a directory. equivalent to using mkdir -p on the command line
@@ -26,3 +27,6 @@ def mkdir_p(folder_path):
 def searchForMaxIteration(folder):
     saved_iters = [int(fname.split("_")[-1]) for fname in os.listdir(folder)]
     return max(saved_iters)
+
+def run_command(command):
+    subprocess.run(command, check=True)

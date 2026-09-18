@@ -64,16 +64,14 @@ def render_set(model_path, name, iteration, views, gaussians, pipeline, backgrou
             if cam_type != "PanopticSports":
                 gt = view.original_image[0:3, :, :]
             else:
-                gt  = view['image'].cuda()
+                gt = view['image'].cuda()
             gt_list.append(gt)
 
     time2=time()
     print("FPS:",(len(views)-1)/(time2-time1))
 
     multithread_write(gt_list, gts_path)
-
     multithread_write(render_list, render_path)
-
     
     imageio.mimwrite(os.path.join(model_path, name, "ours_{}".format(iteration), 'video_rgb.mp4'), render_images, fps=30)
 
@@ -90,8 +88,9 @@ def render_sets(dataset : ModelParams, hyperparam, iteration : int, pipeline : P
 
         if not skip_test:
             render_set(dataset.model_path, "test", scene.loaded_iter, scene.getTestCameras(), gaussians, pipeline, background,cam_type)
+
         if not skip_video:
-            render_set(dataset.model_path,"video",scene.loaded_iter,scene.getVideoCameras(),gaussians,pipeline,background,cam_type)
+            render_set(dataset.model_path, "video", scene.loaded_iter,scene.getVideoCameras(), gaussians, pipeline, background, cam_type)
 
 if __name__ == "__main__":
     # Set up command line argument parser
@@ -102,16 +101,18 @@ if __name__ == "__main__":
     parser.add_argument("--iteration", default=-1, type=int)
     parser.add_argument("--skip_train", action="store_true")
     parser.add_argument("--skip_test", action="store_true")
-    parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--skip_video", action="store_true")
+    parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--configs", type=str)
     args = get_combined_args(parser)
     print("Rendering " , args.model_path)
+
     if args.configs:
         from utils.config_utils import load_config
         from utils.params_utils import merge_hparams
         config = load_config(args.configs)
         args = merge_hparams(args, config)
+
     # Initialize system state (RNG)
     safe_state(args.quiet)
 
