@@ -50,16 +50,16 @@ def main():
     all_scenes.extend(dynerf_scenes)
     all_scenes.extend(hynerf_scenes)
 
-    group = "dynerf"
+    group = args.dataset
 
     for scene in dynerf_scenes:
         preprocess(scene, group)
 
 if __name__ == "__main__":
     # Set up command line argument parser
-    # parser = ArgumentParser(description="Preprocess script parameters")
-    # parser.add_argument()
-    # args = parser.parse_known_args()
+    parser = ArgumentParser(description="Preprocess script parameters")
+    parser.add_argument("--dataset", type=str, default="dynerf", help="Dataset name")
+    args = parser.parse_known_args()
 
     # Dataset preprocess
     main()
