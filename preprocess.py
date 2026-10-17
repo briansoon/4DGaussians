@@ -5,6 +5,7 @@ def preprocess(scene, group):
     print(f"Preprocessing scene: {scene}\n")
 
     data_path = f"data/{group}/{scene}"
+    colmap_mode = "llff" if group == "dynerf" else "hypernerf"
 
     if group == "dynerf":
         # First, extract the frames of each video.
@@ -17,7 +18,7 @@ def preprocess(scene, group):
     # Second, generate point clouds from input data.
     colmap_cmd = [
         "bash", "colmap.sh", 
-        f"{data_path}", "llff"
+        f"{data_path}", f"{colmap_mode}"
     ]
     run_command(colmap_cmd)
 
